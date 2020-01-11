@@ -1,0 +1,12 @@
+diff --git a/Makefile b/Makefile
+index d0b4de31..dc480bc6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -116,7 +116,6 @@ CFLAGS=	-Wall \
+ 	-Wwrite-strings \
+ 	-Wnested-externs \
+ 	-Wredundant-decls \
+-	-Werror \
+ 	-O3 \
+ 	-funsigned-char \
+ 	-I${INCDIR}

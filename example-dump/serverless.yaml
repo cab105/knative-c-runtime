@@ -1,0 +1,13 @@
+service: dump-service
+description: Sample knative service to dump http info
+
+provider:
+  name: triggermesh
+  registry: knative.registry.svc.cluster.local
+
+functions:
+  dump-function:
+    source: app.c
+    runtime: https://raw.githubusercontent.com/cab105/knative-c-runtime/master/c-runtime.yaml
+    buildargs:
+    - HANDLER=dump_func

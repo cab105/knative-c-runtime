@@ -1,0 +1,5 @@
+runtime/obj/*.o
+runtime/knativeruntime.a
+runtime/libhttp.h
+runtime/libhttp.a
+example-dump/app
