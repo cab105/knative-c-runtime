@@ -27,11 +27,20 @@
  **/
 
 #include <stdio.h>
+#include <syslog.h>
 #include <stdlib.h>
 #include "knativeruntime.h"
 #include "httpstatus.h"
 
 #define BUFFERSIZE 4096
+
+void init_func() {
+    openlog("dump_func", LOG_PERROR, LOG_USER);
+}
+
+void finit_func() {
+    closelog();
+}
 
 /* The sample function */
 cb_response_t * dump_func(kvpair_t **query_params, kvpair_t **headers, char *body) {
@@ -58,12 +67,14 @@ cb_response_t * dump_func(kvpair_t **query_params, kvpair_t **headers, char *bod
 
     len += snprintf(buffer + len, BUFFERSIZE, "\nBody:\n%s\n", body);
 
+    syslog(LOG_INFO, "%s\n", buffer);
+
     response->body = buffer;
 }
 
 /* Required to bind the function to the runtime library */
 serverless_cb_t knative_serverless_callback = {
     dump_func, /* serverless function */
-    NULL, /* A per-connection constructor */
-    NULL /* A per-connection destructor */
+    init_func, /* A per-connection constructor */
+    finit_func /* A per-connection destructor */
 };
